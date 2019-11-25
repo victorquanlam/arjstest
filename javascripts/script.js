@@ -13,6 +13,8 @@
 
   var database = firebase.database();
 
+  var currentLocation;
+
   const loadPlaces = function (coords) {
     // COMMENT FOLLOWING LINE IF YOU WANT TO USE STATIC DATA AND ADD COORDINATES IN THE FOLLOWING 'PLACES' ARRAY
     const method = 'api';
@@ -53,6 +55,26 @@ async function loadPlaceFromAPIs(position) {
     return result
 };
 
+// add random marker
+function addRandomMarker() {
+    var randomLat = currentLocation.latitude + Math.floor(Math.random() * (0.000000001 - 0.0000000001)) + 0.0000000001
+    var randomLng = currentLocation.longitude + Math.floor(Math.random() * (0.000000001 - 0.0000000001)) + 0.0000000001
+    const locationsRef = database.ref('locations');
+    if(currentLocation){
+        console.log(currentLocation)
+        locationsRef.push({
+            name: 'Random Test Name',
+            lat:  randomLat,
+            lng:  randomLng
+        }).then(
+            window.alert('Lat:'+ randomLat + ', Long:' + randomLng)
+        )
+    } else {
+        window.alert('Cannot find your current location')
+    }
+    
+}
+
 
 window.onload = () => {
     const scene = document.querySelector('a-scene');
@@ -60,6 +82,7 @@ window.onload = () => {
     // first get current user location
     return navigator.geolocation.getCurrentPosition(function (position) {
 
+        currentLocation = position.coords
         // than use it to load from remote APIs some places nearby
         loadPlaces(position.coords)
             .then((places) => {
@@ -71,7 +94,6 @@ window.onload = () => {
                     const text = document.createElement('a-link');
                     text.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude};`);
                     text.setAttribute('title', place.name);
-                    text.setAttribute('href', 'http://www.example.com/');
                     text.setAttribute('scale', '13 13 13');
 
                     text.addEventListener('loaded', () => {

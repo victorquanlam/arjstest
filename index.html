@@ -17,8 +17,12 @@
     </script>
 
     <script type="text/javascript" src="javascripts/script.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   </head>
   <body style='margin: 0; overflow: hidden;'>
+    <a onclick="addRandomMarker()" class="float">
+      <i class="fa fa-plus my-float"></i>
+      </a>
     <a-scene
     cursor='rayOrigin: mouse; fuse: true; fuseTimeout: 0;'
     raycaster="objects: [gps-entity-place];"
