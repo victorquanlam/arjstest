@@ -57,10 +57,11 @@ async function loadPlaceFromAPIs(position) {
 
 // add random marker
 function addRandomMarker() {
+    if(currentLocation){
     var randomLat = currentLocation.latitude + Math.floor(Math.random() * (0.000000001 - 0.0000000001)) + 0.0000000001
     var randomLng = currentLocation.longitude + Math.floor(Math.random() * (0.000000001 - 0.0000000001)) + 0.0000000001
     const locationsRef = database.ref('locations');
-    if(currentLocation){
+    
         console.log(currentLocation)
         locationsRef.push({
             name: 'Random Test Name',
