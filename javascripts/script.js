@@ -42,16 +42,15 @@ async function loadPlaceFromAPIs(position) {
     let result = []
     const locationsRef = database.ref('locations');
     const locations = await locationsRef.once('value');
-    const value = locations.forEach(function(snapshot) {
+    locations.forEach(function(snapshot) {
         result.push({
             name:snapshot.val().name,
             location: {
                 lat:snapshot.val().lat,
-                lng:snapshot.val().lng
+                lng:snapshot.val().lng,
             }
         });
     })
-    console.log(result)
     return result
 };
 
