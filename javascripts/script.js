@@ -84,8 +84,8 @@ const loadPlaces = function(coords) {
 };
 
 // getting places from REST APIs
-function loadPlaceFromAPIs(position) {
-    return fetch('https://arjsproject.firebaseapp.com/api/v1/locations/')
+async function loadPlaceFromAPIs(position) {
+    return await fetch('https://arjsproject.firebaseapp.com/api/v1/locations/')
         .then((res) => {
             return res.json()
                 .then((resp) => {
