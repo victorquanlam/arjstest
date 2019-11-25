@@ -15,7 +15,7 @@ window.onload = () => {
                     const icon = document.createElement('a-image');
                     icon.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude};`);
                     icon.setAttribute('name', place.name);
-                    icon.setAttribute('src', 'map-marker.PNG');
+                    icon.setAttribute('src', 'https://firebasestorage.googleapis.com/v0/b/arjsproject.appspot.com/o/map-marker.PNG?alt=media&token=31b530d6-4106-4d27-8764-bb4978010919');
 
                     // for debug purposes, just show in a bigger scale, otherwise I have to personally go on places...
                     icon.setAttribute('scale', '20, 20');
@@ -84,8 +84,8 @@ const loadPlaces = function(coords) {
 };
 
 // getting places from REST APIs
-async function loadPlaceFromAPIs(position) {
-    return await fetch('https://arjsproject.firebaseapp.com/api/v1/locations/')
+function loadPlaceFromAPIs(position) {
+    return fetch('https://arjsproject.firebaseapp.com/api/v1/locations/')
         .then((res) => {
             return res.json()
                 .then((resp) => {
