@@ -8,16 +8,7 @@
 
     <link rel="stylesheet" type="text/css" href="style/style.css">
 
-    <!-- update the version number as needed -->
-    <script defer src="/__/firebase/7.5.0/firebase-app.js"></script>
-    <!-- include only the Firebase features as you need -->
-    <script defer src="/__/firebase/7.5.0/firebase-auth.js"></script>
-    <script defer src="/__/firebase/7.5.0/firebase-database.js"></script>
-    <script defer src="/__/firebase/7.5.0/firebase-messaging.js"></script>
-    <script defer src="/__/firebase/7.5.0/firebase-storage.js"></script>
-    <!-- initialize the SDK after all desired features are loaded -->
-    <script defer src="/__/firebase/init.js"></script>
-
+    <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase.js"></script>
     <!-- inclue ar.js framework -->
     <script src='https://aframe.io/releases/0.9.2/aframe.min.js'></script>
     <script src='https://raw.githack.com/jeromeetienne/AR.js/master/aframe/build/aframe-ar.min.js'></script>
@@ -43,7 +34,6 @@
       }
     </style>
   </head>
-  <body>
     <body style='margin: 0; overflow: hidden;'>
       <a-scene
           cursor='rayOrigin: mouse; fuse: true; fuseTimeout: 0;'
@@ -55,7 +45,6 @@
           <a-camera gps-camera="minDistance: 20;" rotation-reader>
       </a-camera>
     </a-scene>
-  </body>
   </body>
    
 </html>

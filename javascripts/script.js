@@ -1,54 +1,35 @@
-const loadPlaces = function (coords) {
-    // COMMENT FOLLOWING LINE IF YOU WANT TO USE STATIC DATA AND ADD COORDINATES IN THE FOLLOWING 'PLACES' ARRAY
-    const method = 'api';
+ // Initialize Firebase
+ var config = {
+    apiKey: "AIzaSyAXLtvnwX3bcsPAqpGZYuePdElYbQp5j3s",
+    authDomain: "arjsproject.firebaseapp.com",
+    databaseURL: "https://arjsproject.firebaseio.com",
+    projectId: "arjsproject",
+    storageBucket: "arjsproject.appspot.com",
+    messagingSenderId: "1027437475576",
+    appId: "1:1027437475576:web:a2ec36de801067855b6d0d",
+    measurementId: "G-3MWNQZ3XFE"
+  };
+  firebase.initializeApp(config);
 
-    const PLACES = [
-        {
-            name: "Your place name",
-            location: {
-                lat: 0, // add here latitude if using static data
-                lng: 0, // add here longitude if using static data
-            }
-        },
-    ];
+  var database = firebase.database();
 
-    if (method === 'api') {
-        return loadPlaceFromAPIs(coords);
-    }
-
-    return PLACES;
-};
 
 // getting places from REST APIs
-function loadPlaceFromAPIs(position) {
-    const params = {
-        radius: 300,    // search places not farther than this value (in meters)
-        clientId: 'HZIJGI4COHQ4AI45QXKCDFJWFJ1SFHYDFCCWKPIJDWHLVQVZ',
-        clientSecret: 'GYRKWWJMO2WK3KIRWBXIN5FQAWXTVFIK2QM4VQWNQ4TRAKWH',
-        version: '20300101',    // foursquare versioning, required but unuseful for this demo
-    };
-
-    // CORS Proxy to avoid CORS problems
-    const corsProxy = 'https://cors-anywhere.herokuapp.com/';
-
-    // Foursquare API
-    const endpoint = `${corsProxy}https://api.foursquare.com/v2/venues/search?intent=checkin
-        &ll=${position.latitude},${position.longitude}
-        &radius=${params.radius}
-        &client_id=${params.clientId}
-        &client_secret=${params.clientSecret}
-        &limit=15
-        &v=${params.version}`;
-    return fetch(endpoint)
-        .then((res) => {
-            return res.json()
-                .then((resp) => {
-                    return resp.response.venues;
-                })
-        })
-        .catch((err) => {
-            console.error('Error with places API', err);
-        })
+const loadPlaces =function(position) {
+    let result = []
+    var locations = database.ref('locations');
+    locations.on('value', function(snapshot) {
+        snapshot.forEach(function(childSnapshot) {
+            result.push({
+                name:childSnapshot.val().name,
+                location: {
+                    lat:childSnapshot.val().lat,
+                    lng:childSnapshot.val().lng,
+                }
+            });
+        });
+    });
+    return result
 };
 
 
@@ -73,7 +54,7 @@ window.onload = () => {
                     text.setAttribute('scale', '13 13 13');
 
                     text.addEventListener('loaded', () => {
-                        window.dispatchEvent(new CustomEvent('gps-entity-place-loaded'))
+                       window.alert(place.name)
                     });
 
                     scene.appendChild(text);
