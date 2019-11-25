@@ -13,9 +13,30 @@
 
   var database = firebase.database();
 
+  const loadPlaces = function (coords) {
+    // COMMENT FOLLOWING LINE IF YOU WANT TO USE STATIC DATA AND ADD COORDINATES IN THE FOLLOWING 'PLACES' ARRAY
+    const method = 'api';
+
+    const PLACES = [
+        {
+            name: "Your place name",
+            location: {
+                lat: 0, // add here latitude if using static data
+                lng: 0, // add here longitude if using static data
+            }
+        },
+    ];
+
+    if (method === 'api') {
+        return loadPlaceFromAPIs(coords);
+    }
+
+    return PLACES;
+};
+
 
 // getting places from REST APIs
-const loadPlaces =function(position) {
+function loadPlaceFromAPIs(position) {
     let result = []
     var locations = database.ref('locations');
     locations.on('value', function(snapshot) {
@@ -24,7 +45,7 @@ const loadPlaces =function(position) {
                 name:childSnapshot.val().name,
                 location: {
                     lat:childSnapshot.val().lat,
-                    lng:childSnapshot.val().lng,
+                    lng:childSnapshot.val().lng
                 }
             });
         });
