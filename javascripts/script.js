@@ -36,20 +36,20 @@
 
 
 // getting places from REST APIs
-function loadPlaceFromAPIs(position) {
+async function loadPlaceFromAPIs(position) {
     let result = []
-    var locations = database.ref('locations');
-    locations.on('value', function(snapshot) {
-        snapshot.forEach(function(childSnapshot) {
-            result.push({
-                name:childSnapshot.val().name,
-                location: {
-                    lat:childSnapshot.val().lat,
-                    lng:childSnapshot.val().lng
-                }
-            });
+    const locationsRef = database.ref('locations');
+    const locations = await locationsRef.once('value');
+    const value = locations.forEach(function(snapshot) {
+        result.push({
+            name:snapshot.val().name,
+            location: {
+                lat:snapshot.val().lat,
+                lng:snapshot.val().lng
+            }
         });
-    });
+    })
+    console.log(result)
     return result
 };
 
@@ -75,7 +75,7 @@ window.onload = () => {
                     text.setAttribute('scale', '13 13 13');
 
                     text.addEventListener('loaded', () => {
-                       window.alert(place.name)
+                        window.dispatchEvent(new CustomEvent('gps-entity-place-loaded'))
                     });
 
                     scene.appendChild(text);
