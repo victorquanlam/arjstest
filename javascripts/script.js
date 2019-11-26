@@ -61,7 +61,7 @@ function getRandomLocationNumber(number){
 function addRandomMarker() {
     if(currentLocation){
     var randomLat = getRandomLocationNumber(currentLocation.latitude)
-    var randomLng = getRandomLocationNumbercurrentLocation.longitude)
+    var randomLng = getRandomLocationNumber(currentLocation.longitude)
     const locationsRef = database.ref('locations');
     
         console.log(currentLocation)
