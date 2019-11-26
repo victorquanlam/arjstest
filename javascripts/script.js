@@ -53,15 +53,15 @@ async function loadPlaceFromAPIs(position) {
     })
     return result
 };
-function getRandomLocationNumber(number){
-    return number + Math.floor(Math.random() * (0.001 - 0.0001)) + 0.0001
+const getRandomLocationNumber = function(){
+   return Math.floor(Math.random() * (0.001 - 0.0001)) + 0.0001
 }
 
 // add random marker
 function addRandomMarker() {
     if(currentLocation){
-    var randomLat = getRandomLocationNumber(currentLocation.latitude)
-    var randomLng = getRandomLocationNumber(currentLocation.longitude)
+    let randomLat = currentLocation.latitude + getRandomLocationNumber()
+    let randomLng = currentLocation.longitude + getRandomLocationNumber()
     const locationsRef = database.ref('locations');
     
         console.log(currentLocation)
@@ -71,6 +71,8 @@ function addRandomMarker() {
             lng:  randomLng
         }).then(
             window.alert('Lat:'+ randomLat + ', Long:' + randomLng)
+            ).then(
+                window.location.reload()
         )
     } else {
         window.alert('Cannot find your current location')
