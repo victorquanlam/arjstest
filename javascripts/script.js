@@ -40,17 +40,26 @@
 // getting places from REST APIs
 async function loadPlaceFromAPIs(position) {
     let result = []
-    const locationsRef = database.ref('locations');
-    const locations = await locationsRef.once('value');
-    locations.forEach(function(snapshot) {
-        result.push({
-            name:snapshot.val().name,
-            location: {
-                lat:snapshot.val().lat,
-                lng:snapshot.val().lng,
-            }
-        });
-    })
+    //set loadMode to 'server' to use service call
+    let loadMode ='server'
+    if(loadMode ==='serverless'){
+        const locationsRef = database.ref('locations');
+        const locations = await locationsRef.once('value');
+        locations.forEach(function(snapshot) {
+            result.push({
+                name:snapshot.val().name,
+                location: {
+                    lat:snapshot.val().lat,
+                    lng:snapshot.val().lng,
+                }
+            });
+        })
+    } else if (loadMode ==='server'){
+        result = await fetch('/locations').then(
+            res => res.json()
+        )
+    }
+    
     return result
 };
 const getRandomLocationNumber = function(){
@@ -106,6 +115,12 @@ window.onload = () => {
                     });
 
                     scene.appendChild(text);
+
+                    // add place description
+                    const description = document.createElement('p');
+                    description.setAttribute('value',place.name)
+                    scene.appendChild(description);
+                    // description.style.marginTop = "";
                 });
             })
     },

@@ -1,0 +1,29 @@
+{
+  "name": "arjs",
+  "version": "0.0.0",
+  "description": "ARJS",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Peter",
+  "entry point": "app.js",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.10.8",
+    "firebase": "^7.5.0",
+    "firebase-admin": "^5.12.0"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/victorqlam/arjstest.git"
+  },
+  "keywords": [
+    "arjs"
+  ],
+  "bugs": {
+    "url": "https://github.com/victorqlam/arjstest/issues"
+  },
+  "homepage": "https://github.com/victorqlam/arjstest#readme"
+}
