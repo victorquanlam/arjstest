@@ -54,7 +54,7 @@ async function loadPlaceFromAPIs(position) {
     return result
 };
 const getRandomLocationNumber = function(){
-   return Math.floor(Math.random() * (0.001 - 0.0001)) + 0.0001
+   return Math.floor(Math.random() * (0.009 - 0.001)) + 0.001
 }
 
 // add random marker
