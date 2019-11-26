@@ -53,12 +53,15 @@ async function loadPlaceFromAPIs(position) {
     })
     return result
 };
+function getRandomLocationNumber(number){
+    return number + Math.floor(Math.random() * (0.001 - 0.0001)) + 0.0001
+}
 
 // add random marker
 function addRandomMarker() {
     if(currentLocation){
-    var randomLat = currentLocation.latitude + Math.floor(Math.random() * (0.0009 - 0.0001)) + 0.0001
-    var randomLng = currentLocation.longitude + Math.floor(Math.random() * (0.0009 - 0.0001)) + 0.0001
+    var randomLat = getRandomLocationNumber(currentLocation.latitude)
+    var randomLng = getRandomLocationNumbercurrentLocation.longitude)
     const locationsRef = database.ref('locations');
     
         console.log(currentLocation)
