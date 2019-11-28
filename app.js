@@ -23,7 +23,7 @@ app.get('/locations', async (request, response) => {
         locations.forEach(function(snapshot) {
             result.push({
                 name:snapshot.val().name,
-                desciption:snapshot.val().desciption?snapshot.val().desciption:'Empty Description',
+                desciption:snapshot.val().desciption?snapshot.val().desciption:'Empty Long Description To Descibe This Location',
                 location: {
                     lat:snapshot.val().lat,
                     lng:snapshot.val().lng,
