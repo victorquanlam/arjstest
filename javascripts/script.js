@@ -78,7 +78,8 @@ function addRandomMarker() {
         locationsRef.push({
             name: 'Random Test Name',
             lat:  randomLat,
-            lng:  randomLng
+            lng:  randomLng,
+            desciption: 'Random Description Name',
         }).then(
             window.alert('Lat:'+ randomLat + ', Long:' + randomLng)
             ).then(
